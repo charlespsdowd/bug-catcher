@@ -3,7 +3,8 @@
 
 class FireAnt extends Bug {
 
-  FireAnt() {
+  FireAnt(BugDelegate delegate) {
+    super(delegate);
     points = -40; 
     yspeed = 1;
     baseJitter = 10;

@@ -2,7 +2,8 @@
 
 class SamuriBug extends Bug {
 
-  SamuriBug() {
+  SamuriBug(BugDelegate delegate) {
+    super(delegate);
     points = 5;
     baseJitter = 7;
   }

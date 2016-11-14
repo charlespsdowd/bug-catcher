@@ -1,4 +1,8 @@
+import java.util.UUID;
+
 class Bug {
+  BugDelegate delegate;
+  UUID bugID;
   float x = random(0+20, width-20); 
   float y = -35;
   float yspeed = 4.5;
@@ -10,7 +14,9 @@ class Bug {
   int signValue = 1;
   int baseJitter = 10;
 
-  Bug() {
+  Bug(BugDelegate delegate) {
+    this.bugID = UUID.randomUUID();
+    this.delegate = delegate;
     jitterCount = baseJitter;
   }
 
@@ -69,6 +75,10 @@ class Bug {
 
     x = max(0, x);
     x = min(x, width);
+    
+    if(y >= height + 50) {
+      this.delegate.bugDied(this);
+    }
   }
 
   final void run() {
@@ -98,4 +108,5 @@ class Bug {
 
     return false;
   }
+  
 }

@@ -2,7 +2,8 @@
 
 class HealthPack extends Bug {
 
-  HealthPack() {
+  HealthPack(BugDelegate delegate) {
+    super(delegate);
     points = 0;
     yspeed = 6;
     baseJitter = 0;

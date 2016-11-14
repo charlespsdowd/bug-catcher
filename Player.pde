@@ -1,4 +1,4 @@
-class Player {
+class Player implements BugDelegate {
   int x = 400;
   int y = 750;
   int xspeed = 7;
@@ -20,7 +20,7 @@ class Player {
 
   void move() {
     if (keyPressed == true) {
-      if (key == 'a' || keyCode == LEFT){
+      if (key == 'a' || keyCode == LEFT) {
         x = x - xspeed;
       }
     }
@@ -36,19 +36,19 @@ class Player {
       xspeed = xspeed * -1;
     }
   }
-  
-   void displayScore() {
+
+  void displayScore() {
     int offset = 5;
     fill(0);
-      textSize(20);
-     
-     if(score >= 10) {
-       offset = 13;
-     }else if(score >= 100)   {
-       offset = 26;
-     }
-      
-      text(this.score,x-offset,y+10);
+    textSize(20);
+
+    if (score >= 10) {
+      offset = 13;
+    } else if (score >= 100) {
+      offset = 26;
+    }
+
+    text(this.score, x-offset, y+10);
   }
 
   void run() {
@@ -57,8 +57,25 @@ class Player {
     invertcontrols();
     displayScore();
   }
-  
+
   void addToScore(Bug withBug) {
     this.score += withBug.points;
+  }
+
+
+  // Implements: interface BugLifeCycle
+
+  void bugCreated(Bug bug) {
+    this.score += bug.points;
+  }
+
+
+  void bugCaught(Bug bug) {
+    text("Nice catch!", x, y + 20);
+  }
+
+
+  void bugDied(Bug bug) {
+    this.score -= bug.points;
   }
 }

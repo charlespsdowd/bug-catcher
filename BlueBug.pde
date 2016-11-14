@@ -3,7 +3,8 @@
 
 class BlueBug extends Bug {
 
-  BlueBug() {
+  BlueBug(BugDelegate delegate) {
+    super(delegate);
     points = 15;
     yspeed = 3;
     baseJitter = 100;
