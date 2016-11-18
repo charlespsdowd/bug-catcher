@@ -66,16 +66,15 @@ class Player implements BugDelegate {
   // Implements: interface BugLifeCycle
 
   void bugCreated(Bug bug) {
-    this.score += bug.points;
   }
 
 
   void bugCaught(Bug bug) {
+    this.addToScore(bug);
     text("Nice catch!", x, y + 20);
   }
 
 
   void bugDied(Bug bug) {
-    this.score -= bug.points;
   }
 }
