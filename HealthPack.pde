@@ -7,6 +7,8 @@ class HealthPack extends Bug {
     points = 0;
     yspeed = 6;
     baseJitter = 0;
+    hitRadius = 30; 
+    health = int(random(1, 100));
   }
 
   void draw() {

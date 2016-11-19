@@ -21,3 +21,12 @@ void draw() {
   fill(255);
   gameController.draw();
 }
+
+
+void keyPressed() {
+  this.gameController.keyPressed();
+}
+
+void keyReleased() {
+  this.gameController.keyReleased();
+}

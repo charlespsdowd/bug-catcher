@@ -5,9 +5,11 @@ class FireAnt extends Bug {
 
   FireAnt(BugDelegate delegate) {
     super(delegate);
-    points = -40; 
+    points = 0; 
     yspeed = 1;
     baseJitter = 10;
+    hitRadius = 35;
+    health = -10;
   }
 
   void draw() {
