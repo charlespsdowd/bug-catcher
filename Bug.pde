@@ -13,6 +13,7 @@ class Bug {
   private int jitterCount = 10;
   int signValue = 1;
   int baseJitter = 10;
+  float hitRadius = 70; 
 
   Bug(BugDelegate delegate) {
     this.bugID = UUID.randomUUID();
@@ -56,6 +57,12 @@ class Bug {
 
     displayScore();
   }
+  
+  void showHitBox() {
+    noFill();
+    stroke(#77FF77);
+    ellipse(x,y,hitRadius*2,hitRadius*2);
+  }
 
   int xOffset() {
     return 0;
@@ -79,6 +86,10 @@ class Bug {
     if(y >= height + 50) {
       this.delegate.bugDied(this);
     }
+    
+    if(this.isCaught(this.delegate.getPlayer())) {
+      this.delegate.bugCaught(this);
+    }
   }
 
   final void run() {
@@ -86,6 +97,7 @@ class Bug {
     if (y < height + 50) {
       move();
       draw();
+      showHitBox();
     }
   }
 
@@ -106,6 +118,14 @@ class Bug {
       return true;
     }
 
+    return false;
+  }
+  
+  boolean isCaught(Player player) {
+    if(dist(x , y, player.x, player.y) < (hitRadius + player.hitRadius)) {
+      return true;
+    }
+    
     return false;
   }
   

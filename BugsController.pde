@@ -4,14 +4,16 @@ interface BugDelegate {
   void bugCreated(Bug bug);
   void bugCaught(Bug bug);
   void bugDied(Bug bug);
+  Player getPlayer(); 
 }
 
 
 class BugsController implements BugDelegate {
-  Player player;
-  BugFactory factory;
-  HashMap<UUID, Bug> gameBugs;
-  HashMap<UUID, Bug> deadBugs;
+  final Player player;
+  final BugFactory factory;
+  final HashMap<UUID, Bug> gameBugs;
+  final HashMap<UUID, Bug> deadBugs;
+  final HashMap<UUID, Bug> caughtBugs;
   int allBugsCount = 0;
   int deadBugsCount = 0;
   int caughtBugsCount = 0;
@@ -21,6 +23,7 @@ class BugsController implements BugDelegate {
     this.factory = factory;
     this.gameBugs = new HashMap<UUID, Bug>();
     this.deadBugs = new HashMap<UUID, Bug>();
+    this.caughtBugs = new HashMap<UUID, Bug>();
     this.factory.delegate = this;
   }
 
@@ -29,6 +32,7 @@ class BugsController implements BugDelegate {
     this.addWaveOfBugs();
     this.drawLivingBugs();
     this.removeDeadBugs();
+    this.removeCaughtBugs();
     this.showScores();
   }
 
@@ -66,6 +70,16 @@ class BugsController implements BugDelegate {
     this.deadBugs.clear();
   }
 
+  void removeCaughtBugs() {
+    if (this.caughtBugs != null) {
+      for (Map.Entry<UUID, Bug> me : caughtBugs.entrySet()) {
+        Bug bug = me.getValue();
+        this.gameBugs.remove(me.getKey());
+      }
+    }
+    this.caughtBugs.clear();
+  }
+
   void showScores() {
     float allBugsDiv = allBugsCount > 0 ? allBugsCount : 1;
     float deadToBugsPerCent = 100 * deadBugsCount/allBugsDiv;
@@ -92,6 +106,7 @@ class BugsController implements BugDelegate {
   void bugCaught(Bug bug) {
     this.caughtBugsCount ++;
     this.player.bugCaught(bug);
+    this.caughtBugs.put(bug.bugID, bug);
   }
 
   void bugDied(Bug bug) {
@@ -99,4 +114,9 @@ class BugsController implements BugDelegate {
     this.player.bugDied(bug);
     this.deadBugs.put(bug.bugID, bug);
   }
+  
+  Player getPlayer() {
+    return this.player;
+  }
+  
 }

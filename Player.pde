@@ -5,6 +5,7 @@ class Player implements BugDelegate {
   boolean invertedcontrols = false;
   int score = 0;
   int health = 100;
+  float hitRadius = 30;
 
   void display() {
     stroke(0);
@@ -77,4 +78,9 @@ class Player implements BugDelegate {
 
   void bugDied(Bug bug) {
   }
+  
+  Player getPlayer() {
+    return this;
+  }
+  
 }
